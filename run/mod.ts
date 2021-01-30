@@ -1,6 +1,6 @@
 export const runJXACode = <R>(jxaCode: string): Promise<R> => {
-  return executeInOsa(jxaCode, []);
-}
+  return runInOsascript(jxaCode, []);
+};
 
 export function run<R>(
   jxaCodeFunction: () => R,
@@ -127,35 +127,59 @@ export function run(jxaCodeFunction: (...args: any[]) => void, ...args: any[]) {
   const out  = fn.apply(null, args);
   JSON.stringify({ result: out });
   `;
-  return executeInOsa(code, args);
+  return runInOsascript(code, args);
 }
 
-const executeInOsa = async (code: string, args: any[]) => {
+const runInOsascript = async (code: string, args: any[]) => {
   const cmd = Deno.run({
-    cmd: ["osascript", "-l", "JavaScript"], 
-    env: {OSA_ARGS: JSON.stringify(args)},
+    cmd: ["osascript", "-l", "JavaScript"],
+    env: { OSA_ARGS: JSON.stringify(args) },
     stdin: "piped",
     stdout: "piped",
-    stderr: "piped"
+    stderr: "piped",
   });
-  
+
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
-  
-  await cmd.stdin.write(encoder.encode(code))
-  cmd.stdin.close()
+
+  await cmd.stdin.write(encoder.encode(code));
+  cmd.stdin.close();
 
   const error = await cmd.stderrOutput();
   const output = await cmd.output();
-  cmd.close()
-  
-  if (error.length) throw Error(decoder.decode(error).replace("Error: ", ""));
+  cmd.close();
+
+  if (error.length) handleError(decoder.decode(error));
   const outStr = decoder.decode(output);
-  if (!output) return undefined
+  if (!output.length) return undefined;
   try {
     const result = JSON.parse(outStr.trim()).result;
-    return result
+    return result;
   } catch {
     return outStr.trim();
   }
-}
+};
+
+const handleError = (OsascriptMessage: string) => {
+  const errorGroups = OsascriptMessage.match(
+    /execution\serror:\sError:\s(?<type>\w+):\s(?<message>.+)\(-\d+\)/,
+  )?.groups;
+  const errorTypeString = errorGroups?.type ?? "";
+  const errorMessage = errorGroups?.message?.trim() ??
+    "An error occured";
+  const errorMapping: Record<
+    string,
+    ErrorConstructor | AggregateErrorConstructor
+  > = {
+    "Error": Error,
+    "AggregateError": AggregateError,
+    "EvalError": EvalError,
+    "RangeError": RangeError,
+    "ReferenceError": ReferenceError,
+    "SyntaxError": SyntaxError,
+    "TypeError": TypeError,
+    "URIError": URIError,
+  };
+  const errorType = errorMapping?.[errorTypeString] ?? Error;
+  throw errorType(errorMessage);
+};
