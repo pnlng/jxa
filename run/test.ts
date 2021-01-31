@@ -4,7 +4,7 @@ import {
   assertThrowsAsync,
 } from "https://deno.land/std@0.85.0/testing/asserts.ts";
 import { run, runJXACode } from "./mod.ts";
-import type {} from "../types/global.d.ts";
+import type {} from "./global.d.ts";
 
 type Sign = "-" | "+";
 
