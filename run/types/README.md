@@ -36,7 +36,7 @@ const result = await run(
   () => {
     const chrome = Application<GoogleChrome>("Google Chrome");
     const windows: GoogleChrome.Window[] = chrome.windows();
-    windows.map((window) => {
+    return windows.map((window) => {
       const activeTab: GoogleChrome.Tab = window.activeTab();
       return activeTab.title();
     });
