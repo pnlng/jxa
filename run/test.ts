@@ -1,9 +1,10 @@
-import { run, runJXACode } from "./mod.ts";
 import {
   assertObjectMatch,
   assertStrictEquals,
   assertThrowsAsync,
 } from "https://deno.land/std@0.85.0/testing/asserts.ts";
+import { run, runJXACode } from "./mod.ts";
+import type {} from "../types/global.d.ts";
 
 type Sign = "-" | "+";
 
@@ -19,7 +20,6 @@ Deno.test("#runJXACode system access", async () => {
 Deno.test("#run system access", async () => {
   const result = await run<void>(
     () =>
-      //@ts-ignore
       Application("System Events")
         .currentUser()
         .name(),

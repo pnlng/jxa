@@ -1,0 +1,3 @@
+[submodule "run/types/JXA"]
+	path = run/types/JXA
+	url = https://github.com/JXA-userland/JXA.git
