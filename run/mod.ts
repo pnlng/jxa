@@ -3,34 +3,34 @@ export const runJXACode = <R>(jxaCode: string): Promise<R> => {
 };
 
 export function run<R>(
-  jxaCodeFunction: () => R,
+  jxaFunction: () => R,
 ): Promise<R>;
 
 export function run<R>(
-  jxaCodeFunction: (...args: any[]) => void,
+  jxaFunction: (...args: any[]) => R,
   ...args: any[]
 ): Promise<R>;
 
 export function run<R, A1>(
-  jxaCodeFunction: (a1: A1) => R,
+  jxaFunction: (a1: A1) => R,
   a1: A1,
 ): Promise<R>;
 
 export function run<R, A1, A2>(
-  jxaCodeFunction: (a1: A1, a2: A2) => void,
+  jxaFunction: (a1: A1, a2: A2) => R,
   a1: A1,
   a2: A2,
 ): Promise<R>;
 
 export function run<R, A1, A2, A3>(
-  jxaCodeFunction: (a1: A1, a2: A2, a3: A3) => void,
+  jxaFunction: (a1: A1, a2: A2, a3: A3) => R,
   a1: A1,
   a2: A2,
   a3: A3,
 ): Promise<R>;
 
 export function run<R, A1, A2, A3, A4>(
-  jxaCodeFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => void,
+  jxaFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => R,
   a1: A1,
   a2: A2,
   a3: A3,
@@ -38,7 +38,7 @@ export function run<R, A1, A2, A3, A4>(
 ): Promise<R>;
 
 export function run<R, A1, A2, A3, A4, A5>(
-  jxaCodeFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => void,
+  jxaFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => R,
   a1: A1,
   a2: A2,
   a3: A3,
@@ -47,7 +47,7 @@ export function run<R, A1, A2, A3, A4, A5>(
 ): Promise<R>;
 
 export function run<R, A1, A2, A3, A4, A5, A6>(
-  jxaCodeFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => void,
+  jxaFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => R,
   a1: A1,
   a2: A2,
   a3: A3,
@@ -57,7 +57,7 @@ export function run<R, A1, A2, A3, A4, A5, A6>(
 ): Promise<R>;
 
 export function run<R, A1, A2, A3, A4, A5, A6, A7>(
-  jxaCodeFunction: (
+  jxaFunction: (
     a1: A1,
     a2: A2,
     a3: A3,
@@ -65,7 +65,7 @@ export function run<R, A1, A2, A3, A4, A5, A6, A7>(
     a5: A5,
     a6: A6,
     a7: A7,
-  ) => void,
+  ) => R,
   a1: A1,
   a2: A2,
   a3: A3,
@@ -76,7 +76,7 @@ export function run<R, A1, A2, A3, A4, A5, A6, A7>(
 ): Promise<R>;
 
 export function run<R, A1, A2, A3, A4, A5, A6, A7, A8>(
-  jxaCodeFunction: (
+  jxaFunction: (
     a1: A1,
     a2: A2,
     a3: A3,
@@ -85,7 +85,7 @@ export function run<R, A1, A2, A3, A4, A5, A6, A7, A8>(
     a6: A6,
     a7: A7,
     a8: A8,
-  ) => void,
+  ) => R,
   a1: A1,
   a2: A2,
   a3: A3,
@@ -97,7 +97,7 @@ export function run<R, A1, A2, A3, A4, A5, A6, A7, A8>(
 ): Promise<R>;
 
 export function run<R, A1, A2, A3, A4, A5, A6, A7, A8, A9>(
-  jxaCodeFunction: (
+  jxaFunction: (
     a1: A1,
     a2: A2,
     a3: A3,
@@ -107,7 +107,7 @@ export function run<R, A1, A2, A3, A4, A5, A6, A7, A8, A9>(
     a7: A7,
     a8: A8,
     a9: A9,
-  ) => void,
+  ) => R,
   a1: A1,
   a2: A2,
   a3: A3,
@@ -119,11 +119,11 @@ export function run<R, A1, A2, A3, A4, A5, A6, A7, A8, A9>(
   a9: A9,
 ): Promise<R>;
 
-export function run(jxaCodeFunction: (...args: any[]) => void, ...args: any[]) {
+export function run(jxaFunction: (...args: any[]) => any, ...args: any[]) {
   const code = `
   ObjC.import('stdlib');
   const args = JSON.parse($.getenv('OSA_ARGS'));
-  const fn   = (${jxaCodeFunction.toString()});
+  const fn   = (${jxaFunction.toString()});
   const out  = fn.apply(null, args);
   JSON.stringify({ result: out });
   `;
