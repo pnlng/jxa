@@ -1,9 +1,9 @@
-# jxa-run
+# JXA Run
 
-Deno module for running JavaScript for Automation (JXA). Mostly a port of the Node package [@jxa/run](https://github.com/JXA-userland/JXA/tree/master/packages/%40jxa/run). 
+Deno module for running JavaScript for Automation (JXA), mostly ported from the Node package [@jxa/run](https://github.com/JXA-userland/JXA/tree/master/packages/%40jxa/run). 
 
 ## Contents
-- [jxa-run](#jxa-run)
+- [JXA Run](#jxa-run)
   - [Contents](#contents)
   - [Prerequisites](#prerequisites)
   - [Usage](#usage)
@@ -34,6 +34,8 @@ console.log(result)
 $ deno run --allow-run script.js
 Hello Deno 🦕!
 ```
+
+For TypeScript specific usage, see [types/](./types/). 
 
 ## Importing
 

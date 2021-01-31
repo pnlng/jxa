@@ -1,6 +1,6 @@
-# jxa-types
+# Type Declarations for JXA
 
-Mostly a Deno-friendly port of [@jxa/types](https://github.com/JXA-userland/JXA/tree/master/packages/%40jxa/types) and [@jxa/global-type](https://github.com/JXA-userland/JXA/tree/master/packages/%40jxa/global-type). 
+Deno-friendly type declarations for JXA ported from [@jxa/types](https://github.com/JXA-userland/JXA/tree/master/packages/%40jxa/types) and [@jxa/global-type](https://github.com/JXA-userland/JXA/tree/master/packages/%40jxa/global-type). 
 
 All the app-specific type declarations are from [@jxa/types/src/core](https://github.com/JXA-userland/JXA/tree/master/packages/%40jxa/types/src/core).
 
