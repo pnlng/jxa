@@ -26,7 +26,7 @@ Deno module for running JavaScript for Automation (JXA). Mostly a port of the No
 import { run } from "https://x.nest.land/jxa-run/mod.ts"
 
 const result = await run((name, emoji) =>
-    `Hello ${name} ${emoji}!`, "Deno", "🦕");
+  `Hello ${name} ${emoji}!`, "Deno", "🦕");
 console.log(result)
 ```
 
@@ -83,8 +83,8 @@ Example:
 
 ```js
 const result = await runJXACode(
-    `Application("System Events").currentUser().name();`,
-    );
+  `Application("System Events").currentUser().name()`
+  );
 console.log(result) 
 // [username]
 ```
