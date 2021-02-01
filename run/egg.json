@@ -1,0 +1,22 @@
+{
+  "$schema": "https://x.nest.land/eggs@0.3.4/src/schema.json",
+  "name": "jxa-run",
+  "entry": "./mod.ts",
+  "description": "Deno module for running Javascript for Automation (JXA)",
+  "homepage": "https://github.com/pnlng/jxa/tree/main/run",
+  "version": "0.0.3",
+  "releaseType": "patch",
+  "files": [
+    "./**/*.d.ts",
+    "./**/README.md",
+    "./**/LICENSE"
+  ],
+  "ignore": [
+    "./types/JXA/"
+  ],
+  "checkFormat": false,
+  "checkTest": false,
+  "checkInstallation": false,
+  "check": true,
+  "unlisted": false
+}
